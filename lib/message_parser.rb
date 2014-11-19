@@ -1,5 +1,5 @@
 module MessageParser
-  def extract_number(input_string, key)
+  def self.extract_number(input_string, key)
     index_of_key = input_string.index(key)
     return nil unless index_of_key
     start_of_number = input_string.index(':', index_of_key) + 1

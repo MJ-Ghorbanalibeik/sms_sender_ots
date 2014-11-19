@@ -1,3 +1,5 @@
+require 'message_parser'
+
 module SmsSenderResalty
   require "net/http"
   require "uri"
