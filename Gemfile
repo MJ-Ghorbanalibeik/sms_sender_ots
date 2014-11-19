@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 # Add minimal gems to enable rake test
-gem 'rails'
-gem 'sqlite3'
+group :test do
+  gem 'rails'
+  gem 'sqlite3'
+end
 # Add dotenv gem to user .env file
 gem 'dotenv'
 
