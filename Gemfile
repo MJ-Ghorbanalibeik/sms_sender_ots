@@ -1,4 +1,9 @@
 source "https://rubygems.org"
+# Add minimal gems to enable rake test
+gem 'rails'
+gem 'sqlite3'
+# Add dotenv gem to user .env file
+gem 'dotenv'
 
 # Declare your gem's dependencies in sms_sender_resalty.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -12,3 +17,5 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+
