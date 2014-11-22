@@ -1,10 +1,12 @@
 require 'message_parser'
+require 'mobile_number_normalizer'
 
 module SmsSenderResalty
   require "net/http"
   require "uri"
 
   include MessageParser
+  include MobileNumberNormalizer
 
   # According to documentation: http://www.resalty.net/files/RESALTY.NET_HTTP_API.pdf
   def self.send_sms(userid, password, to, sender, message)
