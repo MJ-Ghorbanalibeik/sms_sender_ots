@@ -8,6 +8,7 @@ module SmsSenderResalty
 
   # According to documentation: http://www.resalty.net/files/RESALTY.NET_HTTP_API.pdf
   def self.send_sms(userid, password, to, sender, message)
+    to = MobileNumberNormalizer.normalize_number(to)
     uri = URI.parse("http://resalty.net/api/sendSMS.php")
     message=message.encode(Encoding::UTF_8)
     url_params = {
