@@ -3,4 +3,4 @@
 This project rocks and uses MIT-LICENSE.
 
 http api based on: 
-http://www.resalty.net/files/RESALTY.NET_HTTP_API.pdf
+http://docs.digitalplatform.apiary.io/

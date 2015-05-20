@@ -1,7 +1,7 @@
 sms_sender_resalty
 ==================
 
-rails gem to send sms via http://www.resalty.net/
+rails gem to send sms via http://api.otsdc.com/
 
 http api based on: 
-http://www.resalty.net/files/RESALTY.NET_HTTP_API.pdf
+http://docs.digitalplatform.apiary.io/
