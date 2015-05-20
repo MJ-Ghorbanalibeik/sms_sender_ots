@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sms_sender_resalty (0.5.0)
+    sms_sender_ots (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -85,5 +85,5 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   rails
-  sms_sender_resalty!
+  sms_sender_ots!
   sqlite3
