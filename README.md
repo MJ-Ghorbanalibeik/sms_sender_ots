@@ -1,4 +1,4 @@
-sms_sender_resalty
+sms_sender_ots
 ==================
 
 rails gem to send sms via http://api.otsdc.com/
