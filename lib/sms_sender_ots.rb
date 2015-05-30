@@ -7,6 +7,7 @@ module SmsSenderOts
 
   include MessageParser
   include MobileNumberNormalizer
+  include ErrorCodes
 
   # According to documentation: http://docs.digitalplatform.apiary.io
   def self.send_sms(appsid, to, sender, message)
