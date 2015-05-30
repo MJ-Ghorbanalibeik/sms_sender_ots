@@ -1,11 +1,13 @@
 require 'message_parser'
 require 'mobile_number_normalizer'
+require 'error_codes'
 
 module SmsSenderOts
   require "net/http"
 
   include MessageParser
   include MobileNumberNormalizer
+  include ErrorCodes
 
   # According to documentation: http://docs.digitalplatform.apiary.io
   def self.send_sms(appsid, to, sender, message)
@@ -18,10 +20,12 @@ module SmsSenderOts
     end 
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
-    if response.code.to_i >= 200 && response.code.to_i <= 300 && JSON.parse(response.body)["success"] == "true"
+    if response.code.to_i >= 200 && response.code.to_i < 300 && JSON.parse(response.body)["success"] == "true"
       return { message_id: JSON.parse(response.body)["data"]["MessageID"], code: 0 }
     else
-      return { error: JSON.parse(response.body)["errorCode"] }
+      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
+      raise result[:error]
+      return result
     end
   end
 
@@ -31,10 +35,12 @@ module SmsSenderOts
     body = "AppSid=#{appsid}"
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
-    if response.code.to_i >= 200 && response.code.to_i <= 300 && JSON.parse(response.body)["success"] == "true"
+    if response.code.to_i >= 200 && response.code.to_i < 300 && JSON.parse(response.body)["success"] == "true"
       return { balance: JSON.parse(response.body)["data"]["Balance"].to_i, code: nil }
     else
-      return { error: JSON.parse(response.body)["errorCode"] }
+      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
+      raise result[:error]
+      return result
     end
   end
 
@@ -44,12 +50,14 @@ module SmsSenderOts
     body = "AppSid=#{appsid}&MessageID=#{msgid}"
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
-    if response.code.to_i >= 200 && response.code.to_i <= 300 && JSON.parse(response.body)["success"] == "true"
+    if response.code.to_i >= 200 && response.code.to_i < 300 && JSON.parse(response.body)["success"] == "true"
       return { result: JSON.parse(response.body)["data"]["Status"], code: 0 }
     elsif response.code.to_i >= 200 && response.code.to_i <= 300 && JSON.parse(response.body)["Status"] == "Sent"
       return { result: "Sent", code: 1 }
     else
-      return { error: JSON.parse(response.body)["errorCode"] }
+      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
+      raise result[:error]
+      return result
     end
   end
 end
