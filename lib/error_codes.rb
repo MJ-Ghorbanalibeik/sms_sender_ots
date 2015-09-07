@@ -72,6 +72,8 @@ module ErrorCodes
         {error: "Wrong time to live value TTL, TTL should be between 1 – 60 minutes, and should not exceed the Expiry time", code: 34}
       when "ER-35"
         {error: "MessageID already sent", code: 35}
+      else 
+        {error: "Unknown error code", code: error_code}
     end
   end
 end
