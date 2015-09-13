@@ -10,8 +10,9 @@ module SmsSenderOts
   include ErrorCodes
 
   # According to documentation: http://docs.digitalplatform.apiary.io
-  def self.send_sms(appsid, to, sender, message)
-    to = MobileNumberNormalizer.normalize_number(to)
+  def self.send_sms(credentials, mobile_number, message, sender)
+    to = MobileNumberNormalizer.normalize_number(mobile_number)
+    appsid = credentials[:password]
     http = Net::HTTP.new('api.otsdc.com', 80)
     path = '/rest/Messages/Send'
     body = "AppSid=#{appsid}&Recipient=#{to}&Body=#{message}"
@@ -29,7 +30,8 @@ module SmsSenderOts
     end
   end
 
-  def self.get_balance(appsid)
+  def self.get_balance(credentials)
+    appsid = credentials[:password]
     http = Net::HTTP.new('api.otsdc.com', 80)
     path = '/rest/Account/GetBalance'
     body = "AppSid=#{appsid}"
@@ -44,7 +46,8 @@ module SmsSenderOts
     end
   end
 
-  def self.query_message(appsid, msgid)
+  def self.query_message(credentials, msgid)
+    appsid = credentials[:password]
     http = Net::HTTP.new('api.otsdc.com', 80)
     path = '/rest/Messages/GetMessageIDStatus'
     body = "AppSid=#{appsid}&MessageID=#{msgid}"
