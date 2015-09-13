@@ -10,7 +10,7 @@ module SmsSenderOts
   include ErrorCodes
 
   # According to documentation: http://docs.digitalplatform.apiary.io
-  def self.send_sms(credentials, mobile_number, message, sender)
+  def self.send_sms(credentials, mobile_number, message, sender, options = nil)
     to = MobileNumberNormalizer.normalize_number(mobile_number)
     appsid = credentials[:password]
     http = Net::HTTP.new('api.otsdc.com', 80)
