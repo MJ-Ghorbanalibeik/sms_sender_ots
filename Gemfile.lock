@@ -1,6 +1,7 @@
 PATH
   remote: .
   specs:
+    sms_sender_ots (1.1.0)
 
 GEM
   remote: https://rubygems.org/

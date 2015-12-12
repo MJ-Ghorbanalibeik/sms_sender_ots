@@ -72,6 +72,18 @@ module ErrorCodes
         {error: "Wrong time to live value TTL, TTL should be between 1 – 60 minutes, and should not exceed the Expiry time", code: 34}
       when "ER-35"
         {error: "MessageID already sent", code: 35}
+      when "ER-36"
+        {error: "Wrong voice type, voice value should be Male or Female", code: 36}
+      when "ER-37"
+        {error: "", code: 37}
+      when "ER-38"
+        {error: "Invalid number; number is not available or had expired for the submitted AppSid", code: 38}
+      when "ER-39"
+        {error: "Invalid Rule ; rule should be: Is, StartsWith, Contains, Any. Only \"Is\" is available for a shared number", code: 39}
+      when "ER-40"
+        {error: "Keyword not defined", code: 40}
+      when "ER-41"
+        {error: "Invalid Country code", code: 41}
       else 
         {error: "Unknown error code", code: error_code}
     end
