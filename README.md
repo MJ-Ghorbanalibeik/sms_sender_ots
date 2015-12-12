@@ -1,7 +1,7 @@
 sms_sender_ots
 ==================
 
-rails gem to send sms via http://api.otsdc.com/
+rails gem to send sms via http://api.unifonic.com/
 
 http api based on: 
-http://docs.digitalplatform.apiary.io/
+http://docs.unifonic.apiary.io

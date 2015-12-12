@@ -9,11 +9,11 @@ module SmsSenderOts
   include MobileNumberNormalizer
   include ErrorCodes
 
-  # According to documentation: http://docs.digitalplatform.apiary.io
+  # According to documentation: http://docs.unifonic.apiary.io
   def self.send_sms(credentials, mobile_number, message, sender, options = nil)
     to = MobileNumberNormalizer.normalize_number(mobile_number)
     appsid = credentials[:password]
-    http = Net::HTTP.new('api.otsdc.com', 80)
+    http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/Send'
     body = "AppSid=#{appsid}&Recipient=#{to}&Body=#{message}"
     if !sender.blank?
@@ -21,10 +21,11 @@ module SmsSenderOts
     end 
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
-    if response.code.to_i >= 200 && response.code.to_i < 300 && JSON.parse(response.body)["success"] == "true"
+    if response.code.to_i >= 200 && response.code.to_i < 300 && !JSON.parse(response.body)["data"].blank? &&
+      (JSON.parse(response.body)["data"]["Status"] == "Sent" || JSON.parse(response.body)["data"]["Status"] == "Queued")
       return { message_id: JSON.parse(response.body)["data"]["MessageID"], code: 0 }
     else
-      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
+      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"]) 
       raise result[:error]
       return result
     end
@@ -32,7 +33,7 @@ module SmsSenderOts
 
   def self.get_balance(credentials)
     appsid = credentials[:password]
-    http = Net::HTTP.new('api.otsdc.com', 80)
+    http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Account/GetBalance'
     body = "AppSid=#{appsid}"
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
@@ -48,7 +49,7 @@ module SmsSenderOts
 
   def self.query_message(credentials, msgid)
     appsid = credentials[:password]
-    http = Net::HTTP.new('api.otsdc.com', 80)
+    http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/GetMessageIDStatus'
     body = "AppSid=#{appsid}&MessageID=#{msgid}"
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
