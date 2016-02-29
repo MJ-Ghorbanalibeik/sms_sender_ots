@@ -12,10 +12,11 @@ module SmsSenderOts
   # According to documentation: http://docs.unifonic.apiary.io
   def self.send_sms(credentials, mobile_number, message, sender, options = nil)
     to = MobileNumberNormalizer.normalize_number(mobile_number)
+    message_normalized = MobileNumberNormalizer.normalize_message(message)
     appsid = credentials[:password]
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/Send'
-    body = "AppSid=#{appsid}&Recipient=#{to}&Body=#{message}"
+    body = "AppSid=#{appsid}&Recipient=#{to}&Body=#{message_normalized}"
     if !sender.blank?
       body += "&SenderID=#{sender}"
     end 

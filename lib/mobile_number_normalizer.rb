@@ -5,4 +5,8 @@ module MobileNumberNormalizer
     end
     return n
   end
+
+  def self.normalize_message(message)
+    message.encode(Encoding::UTF_8)
+  end
 end
