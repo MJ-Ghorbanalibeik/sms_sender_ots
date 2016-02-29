@@ -8,7 +8,7 @@ class SmsSenderOtsTest < ActiveSupport::TestCase
   test "complete_cycle" do
     balance_before = SmsSenderOts.get_balance({password: ENV['appsid']})
     assert_equal balance_before[:error], nil
-    send_sms_result = SmsSenderOts.send_sms({password: ENV['appsid']}, ENV['mobile_number'], 'This message has been sent from automated test', ENV['sender'])
+    send_sms_result = SmsSenderOts.send_sms({password: ENV['appsid']}, ENV['mobile_number'], 'This message has been sent from automated test 😎', ENV['sender'])
     assert_not_equal send_sms_result[:message_id], nil
     assert_equal send_sms_result[:error], nil
     balance_after = SmsSenderOts.get_balance({password: ENV['appsid']})
