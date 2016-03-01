@@ -1,18 +1,14 @@
-require 'message_parser'
-require 'mobile_number_normalizer'
-require 'error_codes'
+require 'sms_sender_ots/message_parser'
+require 'sms_sender_ots/mobile_number_normalizer'
+require 'sms_sender_ots/error_codes'
 
 module SmsSenderOts
   require "net/http"
 
-  include MessageParser
-  include MobileNumberNormalizer
-  include ErrorCodes
-
   # According to documentation: http://docs.unifonic.apiary.io
   def self.send_sms(credentials, mobile_number, message, sender, options = nil)
-    to = MobileNumberNormalizer.normalize_number(mobile_number)
-    message_normalized = MobileNumberNormalizer.normalize_message(message)
+    to = SmsSenderOts::MobileNumberNormalizer.normalize_number(mobile_number)
+    message_normalized = SmsSenderOts::MobileNumberNormalizer.normalize_message(message)
     appsid = credentials[:password]
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/Send'
@@ -26,7 +22,7 @@ module SmsSenderOts
       (JSON.parse(response.body)["data"]["Status"] == "Sent" || JSON.parse(response.body)["data"]["Status"] == "Queued")
       return { message_id: JSON.parse(response.body)["data"]["MessageID"], code: 0 }
     else
-      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"]) 
+      result = SmsSenderOts::ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"]) 
       raise result[:error]
       return result
     end
@@ -42,7 +38,7 @@ module SmsSenderOts
     if response.code.to_i >= 200 && response.code.to_i < 300 && JSON.parse(response.body)["success"] == "true"
       return { balance: JSON.parse(response.body)["data"]["Balance"].to_i, code: nil }
     else
-      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
+      result = SmsSenderOts::ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
       raise result[:error]
       return result
     end
@@ -60,7 +56,7 @@ module SmsSenderOts
     elsif response.code.to_i >= 200 && response.code.to_i <= 300 && JSON.parse(response.body)["Status"] == "Sent"
       return { result: "Sent", code: 1 }
     else
-      result = ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
+      result = SmsSenderOts::ErrorCodes.get_error_code(JSON.parse(response.body)["errorCode"])
       raise result[:error]
       return result
     end

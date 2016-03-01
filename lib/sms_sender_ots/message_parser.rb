@@ -1,4 +1,4 @@
-module MessageParser
+module SmsSenderOts::MessageParser
   def self.extract_number(input_string, key)
     index_of_key = input_string.index(key)
     return nil unless index_of_key

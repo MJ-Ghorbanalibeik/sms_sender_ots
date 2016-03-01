@@ -1,4 +1,4 @@
-module ErrorCodes
+module SmsSenderOts::ErrorCodes
   def self.get_error_code(error_code)
     # Based on http://docs.digitalplatform.apiary.io/#reference/errors-list
     case error_code
