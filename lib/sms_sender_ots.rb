@@ -1,10 +1,9 @@
+require 'net/http'
 require 'sms_sender_ots/message_parser'
 require 'sms_sender_ots/mobile_number_normalizer'
 require 'sms_sender_ots/error_codes'
 
 module SmsSenderOts
-  require "net/http"
-
   # According to documentation: http://docs.unifonic.apiary.io
   def self.send_sms(credentials, mobile_number, message, sender, options = nil)
     to = SmsSenderOts::MobileNumberNormalizer.normalize_number(mobile_number)
