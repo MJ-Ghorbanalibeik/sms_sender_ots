@@ -12,7 +12,7 @@ module SmsSenderOts
         when "ER-04"
           {error: "Wrong sender ID format, sender ID should not exceed 11 characters or 16 numbers, only English letters allowed with no special characters or spaces", code: 4}
         when "ER-05"
-          {error: "Sender ID is blocked and can’t be used", code: 5}
+          {error: "Sender ID is blocked and can't be used", code: 5}
         when "ER-06"
           {error: "Sender ID doesn't exist", code: 6}
         when "ER-07"
@@ -48,9 +48,9 @@ module SmsSenderOts
         when "ER-22"
           {error: "Language not supported", code: 22}
         when "ER-23"
-          {error: "You have exceeded your Sender ID’s requests limit, delete one sender ID to request a new one", code: 23}
+          {error: "You have exceeded your Sender ID's requests limit, delete one sender ID to request a new one", code: 23}
         when "ER-24"
-          {error: "Wrong Status data , message status should be one of the following statuses “Queued” , “Sent” , “Failed” or “Rejected”", code: 24}
+          {error: "Wrong Status data , message status should be one of the following statuses \"Queued\" , \"Sent\" , \"Failed\" or \"Rejected\"", code: 24}
         when "ER-25"
           {error: "This request is not included in your account plan", code: 25}
         when "ER-26"
@@ -70,7 +70,7 @@ module SmsSenderOts
         when "ER-33"
           {error: "Wrong channel type, Channel value should be TextMessage, Call or Both", code: 33}
         when "ER-34"
-          {error: "Wrong time to live value TTL, TTL should be between 1 – 60 minutes, and should not exceed the Expiry time", code: 34}
+          {error: "Wrong time to live value TTL, TTL should be between 1 and 60 minutes, and should not exceed the Expiry time", code: 34}
         when "ER-35"
           {error: "MessageID already sent", code: 35}
         when "ER-36"
