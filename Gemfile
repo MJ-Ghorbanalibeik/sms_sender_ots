@@ -2,10 +2,9 @@ source "https://rubygems.org"
 # Add minimal gems to enable rake test
 group :test do
   gem 'rails'
-  gem 'sqlite3'
+  gem 'webmock', github: 'bblimke/webmock'
+  gem 'dotenv'
 end
-# Add dotenv gem to user .env file
-gem 'dotenv'
 
 # Declare your gem's dependencies in sms_sender_ots.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
