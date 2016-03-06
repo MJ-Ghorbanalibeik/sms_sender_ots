@@ -12,9 +12,8 @@ module SmsSenderOts
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/Send'
     body = "AppSid=#{appsid}&Recipient=#{to}&Body=#{message_normalized}"
-    if !sender.blank?
-      body += "&SenderID=#{sender}"
-    end 
+    body += "&SenderID=#{sender}" if !sender.blank? 
+    body += '&Instant=true' if !options.blank? && !options[:urgent].blank? && options[:urgent] == true
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
     if response.code.to_i >= 200 && response.code.to_i < 300 && !JSON.parse(response.body)["data"].blank? &&
