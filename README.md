@@ -9,3 +9,6 @@ rails gem to send sms via http://api.unifonic.com/
 
 http api based on: 
 http://docs.unifonic.apiary.io
+
+Version log:
+  1.3.0: Add priority capability.
