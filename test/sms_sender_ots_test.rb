@@ -8,7 +8,7 @@ class SmsSenderOtsTest < ActiveSupport::TestCase
   ]
   # Config webmock for sending messages 
   test_messages.each do |m|
-    request_body_header = {:body => {'AppSid' => ENV['appsid'], 'Recipient' => ENV['mobile_number'], 'Body' => m}, :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}}
+    request_body_header = {:body => {'AppSid' => ENV['appsid'], 'Recipient' => SmsSenderOts::MobileNumberNormalizer.normalize_number(ENV['mobile_number']), 'Body' => m}, :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}}
     request_body_header[:body]['SenderID'] = ENV['sender'] if !ENV['sender'].blank?
     WebMock::API.stub_request(:post, 'api.unifonic.com/rest/Messages/Send').
       with(request_body_header).
