@@ -12,4 +12,4 @@ Version log:
 
   1.3.1: Fix 'frozen string duplication' error.
 
-  1.3.1: Use strings in hash parameters instead of symbols
+  1.3.2: Use strings in hash parameters instead of symbols
