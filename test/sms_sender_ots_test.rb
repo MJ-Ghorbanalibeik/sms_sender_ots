@@ -32,17 +32,17 @@ class SmsSenderOtsTest < ActiveSupport::TestCase
       :headers => {'Content-Type' => 'application/json'})
 
   test "complete_cycle" do
-    balance_before = SmsSenderOts.get_balance({password: ENV['appsid']})
+    balance_before = SmsSenderOts.get_balance({'password' => ENV['appsid']})
     assert_equal balance_before[:error], nil
     test_messages.each do |m|
-      send_sms_result = SmsSenderOts.send_sms({password: ENV['appsid']}, ENV['mobile_number'], m, ENV['sender'])
+      send_sms_result = SmsSenderOts.send_sms({'password' => ENV['appsid']}, ENV['mobile_number'], m, ENV['sender'])
       assert_not_equal send_sms_result[:message_id], nil
       assert_equal send_sms_result[:error], nil
-      query_result = SmsSenderOts.query_message({password: ENV['appsid']}, send_sms_result[:message_id])
+      query_result = SmsSenderOts.query_message({'password' => ENV['appsid']}, send_sms_result[:message_id])
       assert_equal query_result[:error], nil
       assert_equal query_result[:code], 0
     end
-    balance_after = SmsSenderOts.get_balance({password: ENV['appsid']})
+    balance_after = SmsSenderOts.get_balance({'password' => ENV['appsid']})
     assert_equal balance_after[:error], nil
   end
 end

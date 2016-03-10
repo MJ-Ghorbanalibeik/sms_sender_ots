@@ -8,12 +8,12 @@ module SmsSenderOts
   def self.send_sms(credentials, mobile_number, message, sender, options = nil)
     to = SmsSenderOts::MobileNumberNormalizer.normalize_number(mobile_number)
     message_normalized = SmsSenderOts::MobileNumberNormalizer.normalize_message(message)
-    appsid = credentials[:password]
+    appsid = credentials['password']
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/Send'
     body = "AppSid=#{appsid}&Recipient=#{to}&Body=#{message_normalized}"
     body += "&SenderID=#{sender}" if !sender.blank? 
-    body += '&Priority=High' if !options.blank? && options[:type] == :urgent
+    body += '&Priority=High' if !options.blank? && options['type'] == 'urgent'
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
     if response.code.to_i >= 200 && response.code.to_i < 300 && !JSON.parse(response.body)["data"].blank? &&
@@ -27,7 +27,7 @@ module SmsSenderOts
   end
 
   def self.get_balance(credentials)
-    appsid = credentials[:password]
+    appsid = credentials['password']
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Account/GetBalance'
     body = "AppSid=#{appsid}"
@@ -43,7 +43,7 @@ module SmsSenderOts
   end
 
   def self.query_message(credentials, msgid)
-    appsid = credentials[:password]
+    appsid = credentials['password']
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/GetMessageIDStatus'
     body = "AppSid=#{appsid}&MessageID=#{msgid}"

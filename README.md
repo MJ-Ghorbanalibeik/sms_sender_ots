@@ -12,3 +12,5 @@ http://docs.unifonic.apiary.io
 
 Version log:
   1.3.0: Add priority capability.
+
+  1.3.1: Use strings in hash parameters instead of symbols
