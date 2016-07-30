@@ -1,6 +1,8 @@
 ## Customize the test machine
 machine:
   timezone: UTC # Set the timezone
+  ruby:
+      version: 2.2.2
 
 ## Customize dependencies
 dependencies:
