@@ -4,6 +4,10 @@ require 'sms_sender_ots/mobile_number_normalizer'
 require 'sms_sender_ots/error_codes'
 
 module SmsSenderOts
+  def self.supported_methods 
+    ['send_sms', 'query_sms', 'get_balance']
+  end
+
   # According to documentation: http://docs.unifonic.apiary.io
   def self.send_sms(credentials, mobile_number, message, sender, options = nil)
     to = SmsSenderOts::MobileNumberNormalizer.normalize_number(mobile_number)
@@ -42,11 +46,14 @@ module SmsSenderOts
     end
   end
 
-  def self.query_message(credentials, msgid)
-    appsid = credentials['password']
+  def self.query_sms(credentials, message_id)
     http = Net::HTTP.new('api.unifonic.com', 80)
     path = '/rest/Messages/GetMessageIDStatus'
-    body = "AppSid=#{appsid}&MessageID=#{msgid}"
+    params = {
+      'AppSid' => credentials['password'],
+      'MessageID' => message_id
+    }
+    body=URI.encode_www_form(params)
     headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
     response = http.post(path, body, headers)
     if response.code.to_i >= 200 && response.code.to_i < 300 && JSON.parse(response.body)["success"] == "true"

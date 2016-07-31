@@ -1,10 +1,4 @@
 source "https://rubygems.org"
-# Add minimal gems to enable rake test
-group :test do
-  gem 'rails'
-  gem 'webmock', github: 'bblimke/webmock'
-  gem 'dotenv'
-end
 
 # Declare your gem's dependencies in sms_sender_ots.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
